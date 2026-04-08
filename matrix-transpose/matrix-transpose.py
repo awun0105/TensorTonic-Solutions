@@ -1,24 +1,29 @@
 import numpy as np
 
 def matrix_transpose(A):
-    A_np = np.array(A)
+    """
+    Chuyển vị ma trận A mà không dùng np.transpose() hoặc .T
     
-    n, m = A_np.shape 
+    Arguments:
+    A -- mảng đầu vào (có thể là list hoặc numpy array)
     
-    new_array = np.zeros((m, n))
+    Returns:
+    A_T -- mảng numpy đã được chuyển vị
+    """
+    # Chuyển đầu vào thành numpy array để lấy thông tin shape dễ dàng
+    A_array = np.asarray(A)
     
-    for i in range(n):
-        for j in range(m):
-            new_array[j, i] = A_np[i, j]
-    #A is a list
-    #n = len(A)
-    #m = len(A[0]) if n > 0 else 0
+    # Lấy số hàng (m) và số cột (n)
+    m, n = A_array.shape
     
-    #new_array = np.zeros((m, n))
+    # Tạo một ma trận mới toàn số 0 với shape ngược lại (n, m)
+    # Lưu ý: dtype nên được giữ nguyên từ ma trận gốc
+    A_T = np.zeros((n, m), dtype=A_array.dtype)
     
-    #for i in range(n):
-      #  for j in range(m):
-      #      new_array[j, i] = A[i][j]         
-    return new_array
-
+    # Duyệt qua từng phần tử và hoán đổi vị trí
+    for i in range(m):
+        for j in range(n):
+            # Phần tử tại (i, j) của ma trận cũ sẽ nằm ở (j, i) của ma trận mới
+            A_T[j, i] = A_array[i, j]
             
+    return A_T
