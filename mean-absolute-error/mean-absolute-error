@@ -1,11 +1,53 @@
 import numpy as np
 
 
-def mean_absolute_error(y_pred, y_true):
-    y_pred = np.asarray(y_pred)
+def mean_absolute_error(y_true, y_pred):
+    """
+    Description:
+    Tính toán Sai số Tuyệt đối Trung bình (Mean Absolute Error - MAE).
+    MAE đo lường độ lớn trung bình của các sai số dự báo mà không quan tâm
+    đến hướng (dương hay âm) của chúng.
+
+    Requirements:
+    - Inputs: Hai mảng 1D (NumPy arrays hoặc lists có thể chuyển đổi).
+    - Đảm bảo hình dạng (shapes) của hai mảng phải khớp nhau hoàn toàn.
+    - Không sử dụng vòng lặp (Vectorized implementation).
+    - Trả về kết quả kiểu Python float.
+
+    Constraints:
+    - 1 ≤ n ≤ 1,000,000 (Số lượng phần tử).
+    - Thư viện sử dụng: Chỉ NumPy.
+    - Thời gian thực thi: < 200ms cho mảng 1 triệu phần tử.
+
+    Returns:
+    - float: Giá trị MAE tính được.
+    - None: Nếu hình dạng của y_true và y_pred không khớp.
+    """
+
+    # 1. Chuyển đổi đầu vào thành NumPy arrays để sử dụng các phép toán vector
     y_true = np.asarray(y_true)
-    if y_pred.shape != y_true.shape:
+    y_pred = np.asarray(y_pred)
+
+    # 2. Kiểm tra tính tương thích về hình dạng (Shape Matching)
+    # Nếu y_true là (n,) và y_pred là (n, 1), phép trừ vẫn chạy được
+    # nhưng sẽ ra kết quả sai (broadcasting), vì vậy so sánh .shape là an toàn nhất.
+    if y_true.shape != y_pred.shape:
         return None
 
-    mae = np.mean(np.abs(y_pred - y_true))
+    # 3. Tính toán MAE bằng phương pháp Vectorization
+    # - (y_true - y_pred): Trừ từng cặp phần tử tương ứng
+    # - np.abs(...): Lấy giá trị tuyệt đối cho từng phần tử kết quả
+    # - np.mean(...): Tính trung bình cộng của tất cả các giá trị tuyệt đối đó
+    mae = np.mean(np.abs(y_true - y_pred))
+
+    # 4. Ép kiểu về Python float để đảm bảo tính tương thích (Requirement)
     return float(mae)
+
+
+# --- Ví dụ sử dụng ---
+if __name__ == "__main__":
+    true_values = [3.0, -0.5, 2.0, 7.0]
+    pred_values = [2.5, 0.0, 2.0, 8.0]
+
+    result = mean_absolute_error(true_values, pred_values)
+    print(f"MAE Result: {result}")  # Mong đợi: 0.5

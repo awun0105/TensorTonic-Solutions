@@ -1,5 +1,6 @@
 import numpy as np
 
+
 def mean_squared_error(y_pred, y_true):
     """
     Compute the Mean Squared Error between predictions and targets.
@@ -16,27 +17,49 @@ def mean_squared_error(y_pred, y_true):
     """
     y_pred = np.asarray(y_pred)
     y_true = np.asarray(y_true)
-    if(y_pred.shape != y_true.shape):
+    if y_pred.shape != y_true.shape:
         return None
 
-    mse = np.mean((y_pred - y_true)**2)
+    mse = np.mean((y_pred - y_true) ** 2)
     return float(mse)
 
-'''
+
+"""
 def mean_squared_error(y_pred, y_true):
     y_pred = np.asarray(y_pred)
     y_true = np.asarray(y_true)
-    
+
     if y_pred.shape != y_true.shape: # Kiểm tra khớp toàn bộ hình dạng
         return None
-    
+
     count = y_pred.size # Dùng .size để lấy tổng số phần tử
     total_sum = 0
-    
+
     for i in range(count):
         # Truy cập bằng flat index để an toàn cho cả mảng nhiều chiều
         error = (y_pred.flat[i] - y_true.flat[i])**2
-        total_sum += error 
-        
+        total_sum += error
+
     return float(total_sum / count)
+"""
+# Root mean squared error (RMSE)
+'''
+import numpy as np
+
+def root_mean_squared_error(y_true, y_pred):
+    """
+    Description: Tính Sai số căn phương trung bình (RMSE).
+    Formula: sqrt( mean( (y_true - y_pred)^2 ) )
+    """
+    y_true = np.asarray(y_true)
+    y_pred = np.asarray(y_pred)
+
+    if y_true.shape != y_pred.shape:
+        return None
+
+    # Tính MSE trước, sau đó lấy căn bậc hai toàn cục
+    mse = np.mean((y_true - y_pred) ** 2)
+    rmse = np.sqrt(mse)
+
+    return float(rmse)
 '''
