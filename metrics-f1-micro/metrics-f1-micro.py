@@ -1,5 +1,7 @@
 import numpy as np 
-
+'''
+Để tính F1-Micro, chúng ta cần hiểu bản chất của nó: Trong phương pháp "Micro-average", người ta sẽ cộng dồn tất cả các đại lượng True Positives ($TP$), False Positives ($FP$), và False Negatives ($FN$) của tất cả các lớp lại trước, sau đó mới tính $F1$.Tuy nhiên, có một bí mật toán học cực kỳ thú vị: Đối với bài toán Multi-class mà mỗi mẫu chỉ thuộc về một lớp duy nhất, thì $F1$-Micro chính bằng Accuracy (độ chính xác tổng thể).Giải thích tại sao:Bất kỳ khi nào bạn dự đoán sai một mẫu: Bạn vừa tạo ra 1 $FN$ (cho lớp đúng) và vừa tạo ra 1 $FP$ (cho lớp sai).Do đó, tổng $TP$ chính là số lượng mẫu dự đoán đúng.Tổng $FP$ luôn bằng tổng $FN$.Khi $FP = FN$, thì $Precision = Recall = F1 = Accuracy$.
+'''
 def f1_micro(y_true, y_pred) -> float:
     """
     Compute micro-averaged F1 for multi-class integer labels.
