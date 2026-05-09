@@ -63,3 +63,32 @@ def root_mean_squared_error(y_true, y_pred):
 
     return float(rmse)
 '''
+# Mean squared log error
+'''
+import numpy as np
+
+def mean_squared_log_error(y_true, y_pred):
+    """
+    Description: Tính Sai số bình phương log trung bình (MSLE).
+    Requirements: y_true và y_pred không được chứa giá trị âm.
+    """
+    y_true = np.asarray(y_true)
+    y_pred = np.asarray(y_pred)
+
+    if y_true.shape != y_pred.shape:
+        return None
+
+    # Kiểm tra điều kiện giá trị không âm (tránh lỗi log)
+    if np.any(y_true < 0) or np.any(y_pred < 0):
+        # Thông thường MSLE không xác định cho số âm
+        return None
+
+    # Tính log(1 + y) cho cả hai mảng
+    log_true = np.log1p(y_true) # np.log1p(x) tương đương np.log(1 + x) nhưng chính xác hơn
+    log_pred = np.log1p(y_pred)
+
+    # Tính MSE trên các giá trị đã log
+    msle = np.mean((log_true - log_pred) ** 2)
+
+    return float(msle)
+'''
