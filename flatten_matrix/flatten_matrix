@@ -1,0 +1,12 @@
+def flatten_matrix(matrix):
+    """
+    Sử dụng List Comprehension để duỗi phẳng ma trận.
+    """
+    # Cú pháp: [phần_tử cho sublist trong matrix cho phần_tử trong sublist]
+    return [item for sublist in matrix for item in sublist]
+
+
+# Chạy thử
+matrix = [[1, 2], [3, 4], [5, 6, 7]]
+print(flatten_matrix(matrix))
+# Output: [1, 2, 3, 4, 5, 6, 7]
